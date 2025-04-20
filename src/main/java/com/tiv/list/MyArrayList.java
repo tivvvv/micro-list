@@ -62,7 +62,12 @@ public class MyArrayList<E> implements List<E> {
 
     @Override
     public E set(int index, E e) {
-        return null;
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException();
+        }
+        E old = (E) table[index];
+        table[index] = e;
+        return old;
     }
 
     @Override
