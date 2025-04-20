@@ -1,6 +1,7 @@
 package com.tiv.list;
 
 import java.util.Iterator;
+import java.util.Objects;
 
 public class MyLinkedList<E> implements List<E> {
 
@@ -60,12 +61,43 @@ public class MyLinkedList<E> implements List<E> {
 
     @Override
     public E remove(int index) {
-        return null;
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException();
+        }
+        Node<E> node = findNode(index);
+        return removeNode(node);
     }
 
     @Override
     public boolean remove(E e) {
+        Node<E> node = head;
+        while (node != null) {
+            if (Objects.equals(node.value, e)) {
+                removeNode(node);
+                return true;
+            }
+            node = node.next;
+        }
         return false;
+    }
+
+    private E removeNode(Node<E> node) {
+        Node<E> pre = node.pre;
+        Node<E> next = node.next;
+        if (pre == null) {
+            head = next;
+        } else {
+            pre.next = next;
+        }
+        if (next == null) {
+            tail = pre;
+        } else {
+            next.pre = pre;
+        }
+        node.pre = null;
+        node.next = null;
+        size--;
+        return node.value;
     }
 
     @Override
