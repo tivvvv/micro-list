@@ -1,6 +1,7 @@
 package com.tiv.list;
 
 import java.util.Iterator;
+import java.util.Objects;
 
 public class MyArrayList<E> implements List<E> {
 
@@ -38,11 +39,24 @@ public class MyArrayList<E> implements List<E> {
 
     @Override
     public E remove(int index) {
-        return null;
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException();
+        }
+        E removed = (E) table[index];
+        System.arraycopy(table, index + 1, table, index, size - index - 1);
+        size--;
+        table[size] = null;
+        return removed;
     }
 
     @Override
     public boolean remove(E e) {
+        for (int i = 0; i < size; i++) {
+            if (Objects.equals(e, table[i])) {
+                remove(i);
+                return true;
+            }
+        }
         return false;
     }
 
