@@ -1,6 +1,7 @@
 package com.tiv.list;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 import java.util.Objects;
 
 public class MyArrayList<E> implements List<E> {
@@ -85,6 +86,26 @@ public class MyArrayList<E> implements List<E> {
 
     @Override
     public Iterator<E> iterator() {
-        return null;
+        return new ArrayListIterator();
+    }
+
+    class ArrayListIterator implements Iterator<E> {
+
+        int cursor;
+
+        @Override
+        public boolean hasNext() {
+            return cursor != size;
+        }
+
+        @Override
+        public E next() {
+            if (cursor >= size) {
+                throw new NoSuchElementException();
+            }
+            E e = (E) table[cursor];
+            cursor++;
+            return e;
+        }
     }
 }
