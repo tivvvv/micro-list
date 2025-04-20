@@ -113,7 +113,10 @@ public class MyLinkedList<E> implements List<E> {
 
     @Override
     public E get(int index) {
-        return null;
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException();
+        }
+        return findNode(index).value;
     }
 
     @Override
