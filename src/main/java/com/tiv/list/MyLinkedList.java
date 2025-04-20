@@ -102,7 +102,13 @@ public class MyLinkedList<E> implements List<E> {
 
     @Override
     public E set(int index, E e) {
-        return null;
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException();
+        }
+        Node<E> node = findNode(index);
+        E old = node.value;
+        node.value = e;
+        return old;
     }
 
     @Override
