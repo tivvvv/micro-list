@@ -7,8 +7,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class ListTest {
 
     @Test
-    void testArrayList() {
-        List<String> list = new MyArrayList<>();
+    void testList() {
+        //List<String> list = new MyArrayList<>();
+        List<String> list = new MyLinkedList<>();
         for (int i = 0; i < 20; i++) {
             list.add(String.valueOf(i));
         }

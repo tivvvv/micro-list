@@ -1,6 +1,7 @@
 package com.tiv.list;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 import java.util.Objects;
 
 public class MyLinkedList<E> implements List<E> {
@@ -126,7 +127,28 @@ public class MyLinkedList<E> implements List<E> {
 
     @Override
     public Iterator<E> iterator() {
-        return null;
+        return new LinkedListIterator();
+    }
+
+    class LinkedListIterator implements Iterator<E> {
+
+        Node<E> node = head;
+
+        @Override
+        public boolean hasNext() {
+            return node != null;
+        }
+
+        @Override
+        public E next() {
+            if (node == null) {
+                throw new NoSuchElementException();
+            }
+            E result = node.value;
+            node = node.next;
+
+            return result;
+        }
     }
 
     class Node<E> {
